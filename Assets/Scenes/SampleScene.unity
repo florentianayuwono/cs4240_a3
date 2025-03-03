@@ -714,7 +714,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1059937997}
   m_HandleRect: {fileID: 1059937996}
   m_Direction: 0
-  m_Value: -0.0000004273173
+  m_Value: 0
   m_Size: 0.464375
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1151,7 +1151,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -371.49963, y: 484}
+  m_AnchoredPosition: {x: -371.49997, y: 484}
   m_SizeDelta: {x: 1600, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &529383850
@@ -1236,7 +1236,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 529383853}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 782628379}
+        m_TargetAssemblyTypeName: ARTapToPlaceObject, Assembly-CSharp
+        m_MethodName: ChangeObject
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &529383853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,7 +1460,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementIndicator: {fileID: 1114040580}
-  objectToPlace: {fileID: 100008, guid: a11d318bf37c01d489a19dc2dc33ed7d, type: 3}
+  objectsToPlace:
+  - {fileID: 100008, guid: a11d318bf37c01d489a19dc2dc33ed7d, type: 3}
+  - {fileID: 100004, guid: 2de9ad0fa697ed54db49ee8dcbe9d875, type: 3}
+  - {fileID: 100008, guid: 6cb4f5f750494f740a101f4c67f3f2c0, type: 3}
+  - {fileID: 100020, guid: 3afc3ad1f4025944cb7622a67af41586, type: 3}
 --- !u!1 &826757797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,6 +1567,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &847241365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 847241366}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &847241366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847241365}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888463498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2350,7 +2397,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1603332597}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 782628379}
+        m_TargetAssemblyTypeName: ARTapToPlaceObject, Assembly-CSharp
+        m_MethodName: ChangeObject
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1603332597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,7 +2562,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1977069127}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 782628379}
+        m_TargetAssemblyTypeName: ARTapToPlaceObject, Assembly-CSharp
+        m_MethodName: ChangeObject
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1977069127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,7 +2731,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2117861841}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 782628379}
+        m_TargetAssemblyTypeName: ARTapToPlaceObject, Assembly-CSharp
+        m_MethodName: ChangeObject
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2117861841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2785,3 +2868,4 @@ SceneRoots:
   - {fileID: 782628377}
   - {fileID: 826757801}
   - {fileID: 16262406}
+  - {fileID: 847241366}

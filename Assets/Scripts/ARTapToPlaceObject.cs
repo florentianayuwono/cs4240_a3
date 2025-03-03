@@ -8,7 +8,9 @@ using System.Collections.Generic; // Added to fix List<> error
 public class ARTapToPlaceObject : MonoBehaviour
 {
     public GameObject placementIndicator;
-    public GameObject objectToPlace;
+    public GameObject[] objectsToPlace;
+
+    private GameObject currentObjectToPlace;
     private Pose PlacementPose;
     private ARRaycastManager aRRaycastManager;
     private bool placementPoseIsValid = false;
@@ -20,6 +22,11 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         // Updated obsolete method
         aRRaycastManager = FindFirstObjectByType<ARRaycastManager>();
+
+        if (objectsToPlace.Length > 0)
+        {
+            currentObjectToPlace = objectsToPlace[0];
+        }
     }
 
     void Awake()
@@ -88,12 +95,21 @@ public class ARTapToPlaceObject : MonoBehaviour
             Quaternion correctedRotation = PlacementPose.rotation * Quaternion.Euler(-90f, 0f, 0f);
 
             Debug.Log("Placing object at position: " + PlacementPose.position);
-            Instantiate(objectToPlace, PlacementPose.position, correctedRotation);
+            Instantiate(currentObjectToPlace, PlacementPose.position, correctedRotation);
         }
         else
         {
             Debug.Log("Invalid placement pose");
         }
     }
+    public void ChangeObject(int index)
+    {
+        // Change the current object to the next one in the array
+        currentObjectToPlace = objectsToPlace[index];
+
+        // Log the change for debugging
+        Debug.Log("Switched to object: " + currentObjectToPlace.name);
+    }
+
 
 }
