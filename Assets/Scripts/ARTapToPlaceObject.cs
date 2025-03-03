@@ -17,6 +17,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     private PlayerInput playerInput;
     private InputAction touchAction;
+    private List<GameObject> placedObjects = new List<GameObject>();
 
     void Start()
     {
@@ -49,6 +50,21 @@ public class ARTapToPlaceObject : MonoBehaviour
         touchAction.started -= PlaceObject;
     }
 
+    public void DeleteObject()
+    {
+        // Raycast from touch to see if it hits any object
+        if (placedObjects.Count > 0) // Ensure there's at least one object
+        {
+            GameObject lastObject = placedObjects[placedObjects.Count - 1]; // Get the most recent object
+            placedObjects.RemoveAt(placedObjects.Count - 1); // Remove it from the list
+            Destroy(lastObject); // Destroy the object
+            Debug.Log("Most recently placed object deleted: " + lastObject.name);
+        }
+        else
+        {
+            Debug.Log("No objects to delete.");
+        }
+    }
     void Update()
     {
         UpdatePlacementPose();
@@ -95,7 +111,8 @@ public class ARTapToPlaceObject : MonoBehaviour
             Quaternion correctedRotation = PlacementPose.rotation * Quaternion.Euler(-90f, 0f, 0f);
 
             Debug.Log("Placing object at position: " + PlacementPose.position);
-            Instantiate(currentObjectToPlace, PlacementPose.position, correctedRotation);
+            GameObject placedObject = Instantiate(currentObjectToPlace, PlacementPose.position, correctedRotation);
+            placedObjects.Add(placedObject); // Add the placed object to the list
         }
         else
         {
