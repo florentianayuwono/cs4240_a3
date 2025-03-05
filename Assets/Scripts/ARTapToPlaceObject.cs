@@ -2,7 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
+using TMPro;
 using System;
+using UnityEngine.EventSystems;
 using System.Collections.Generic; // Added to fix List<> error
 
 public class ARTapToPlaceObject : MonoBehaviour
@@ -69,6 +72,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         UpdatePlacementPose();
         UpdatePlacementIndicator();
+        
     }
 
     private void UpdatePlacementPose()
@@ -127,6 +131,4 @@ public class ARTapToPlaceObject : MonoBehaviour
         // Log the change for debugging
         Debug.Log("Switched to object: " + currentObjectToPlace.name);
     }
-
-
 }
