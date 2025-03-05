@@ -72,7 +72,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         UpdatePlacementPose();
         UpdatePlacementIndicator();
-        
+
     }
 
     private void UpdatePlacementPose()
@@ -110,6 +110,12 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         Debug.Log("Input action triggered!");
 
+        if (IsPointerOverUiObject())
+        {
+            Debug.Log("Touch detected on UI, ignoring object placement.");
+            return;
+        }
+
         if (placementPoseIsValid)
         {
             Quaternion correctedRotation = PlacementPose.rotation * Quaternion.Euler(-90f, 0f, 0f);
@@ -122,6 +128,21 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             Debug.Log("Invalid placement pose");
         }
+    }
+
+    private bool IsPointerOverUiObject()
+    {
+        if (Touchscreen.current == null || Touchscreen.current.primaryTouch.press.isPressed == false)
+            return false; // No valid touch detected
+
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = Touchscreen.current.primaryTouch.position.ReadValue()
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0; // Returns true if the touch is over a UI element
     }
     public void ChangeObject(int index)
     {
