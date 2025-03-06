@@ -102,6 +102,13 @@ public class ARTapToPlaceObject : MonoBehaviour
             return;
         }
 
+         // If the user taps the selected object again, deselect it
+        if (selectedObject != null && Vector3.Distance(selectedObject.transform.position, PlacementPose.position) < minPlacementDistance)
+        {
+            DeselectObject();
+            return; // Exit early to prevent placing a new object
+        }
+
         GameObject nearbyObject = GetNearbyObject(PlacementPose.position);
         if (nearbyObject != null)
         {
@@ -114,6 +121,13 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             PlaceObject();
         }
+    }
+
+    private void DeselectObject()
+    {
+        selectedObject = null;
+        selectionUI.SetActive(false);
+        placementIndicator.SetActive(true); // Re-enable placement indicator when deselecting
     }
 
     private void PlaceObject()
