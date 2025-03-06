@@ -19,7 +19,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     private bool placementPoseIsValid = false;
     private List<GameObject> placedObjects = new List<GameObject>();
     private GameObject selectedObject = null;  // The tapped object
-    private bool isRelocating = false;
+    private bool isPlacingAfterRelocate = false; // Track if we're relocating an object
 
     public float minPlacementDistance = 0.5f;  // Prevent objects from being placed too close
 
@@ -58,7 +58,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void Update()
     {
-        if (!selectionUI.activeSelf && !isRelocating) // Only update placement if no UI is open
+        if (!selectionUI.activeSelf) // Only update placement if no UI is open
         {
             UpdatePlacementPose();
             UpdatePlacementIndicator();
@@ -80,7 +80,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     private void UpdatePlacementIndicator()
     {
-        if (placementPoseIsValid && !selectionUI.activeSelf && !isRelocating)
+        if (placementPoseIsValid && !selectionUI.activeSelf)
         {
             placementIndicator.SetActive(true);
             placementIndicator.transform.SetPositionAndRotation(PlacementPose.position, PlacementPose.rotation);
@@ -95,6 +95,13 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         if (IsPointerOverUiObject()) return; // Ignore UI taps
 
+        if (isPlacingAfterRelocate) 
+        {
+            PlaceObject(); // If relocating, let the user place the object again
+            isPlacingAfterRelocate = false; // Reset relocation mode
+            return;
+        }
+
         GameObject nearbyObject = GetNearbyObject(PlacementPose.position);
         if (nearbyObject != null)
         {
@@ -103,11 +110,7 @@ public class ARTapToPlaceObject : MonoBehaviour
             return; // Prevent placing a new object
         }
 
-        if (isRelocating)
-        {
-            ConfirmRelocation();
-        }
-        else if (!selectionUI.activeSelf) // Prevent placing while UI is open
+        if (!selectionUI.activeSelf) // Prevent placing while UI is open
         {
             PlaceObject();
         }
@@ -170,30 +173,18 @@ public class ARTapToPlaceObject : MonoBehaviour
         }
     }
 
-    public void StartRelocation()
+    public void RelocateObject()
     {
         if (selectedObject == null) return;
 
-        isRelocating = true;
-        selectedObject.SetActive(false); // Hide object while relocating
+        // 1. Delete the object
+        placedObjects.Remove(selectedObject);
+        Destroy(selectedObject);
         selectionUI.SetActive(false);
-    }
 
-    private void ConfirmRelocation()
-    {
-        if (!placementPoseIsValid) return;
-
-        if (IsOverlappingWithOtherObjects(PlacementPose.position))
-        {
-            Debug.Log("Cannot relocate object here, too close to another object.");
-            return; // Prevent relocation if colliding
-        }
-
-        selectedObject.transform.SetPositionAndRotation(PlacementPose.position, PlacementPose.rotation);
-        selectedObject.SetActive(true); // Show object again
-        isRelocating = false;
-        selectedObject = null;
-        placementIndicator.SetActive(true); // Re-enable placement marker after relocation
+        // 2. Allow user to place a new object
+        isPlacingAfterRelocate = true;
+        placementIndicator.SetActive(true);
     }
 
     private bool IsPointerOverUiObject()
