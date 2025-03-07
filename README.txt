@@ -1,8 +1,8 @@
-## AR Furniture Preview
+AR Furniture Preview
 
 This app allows users to scan their environment and preview how it will look like when the furnitures are placed at certain position.
 
-### Usage
+Usage
 
 1. The placement indicator arrow button will detect appropriate planes and show possible location where a furniture can be placed.
 2. User can choose what type of furniture they want to select by scrolling through the furniture selection panel.
