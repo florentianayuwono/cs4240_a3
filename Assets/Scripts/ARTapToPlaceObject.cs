@@ -95,14 +95,14 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         if (IsPointerOverUiObject()) return; // Ignore UI taps
 
-        if (isPlacingAfterRelocate) 
+        if (isPlacingAfterRelocate)
         {
             PlaceObject(); // If relocating, let the user place the object again
             isPlacingAfterRelocate = false; // Reset relocation mode
             return;
         }
 
-         // If the user taps the selected object again, deselect it
+        // If the user taps the selected object again, deselect it
         if (selectedObject != null && Vector3.Distance(selectedObject.transform.position, PlacementPose.position) < minPlacementDistance)
         {
             DeselectObject();
@@ -187,19 +187,42 @@ public class ARTapToPlaceObject : MonoBehaviour
         }
     }
 
+    private GameObject GetObjectPrefab(GameObject placedObject)
+    {
+        foreach (GameObject prefab in objectsToPlace)
+        {
+            if (prefab.name == placedObject.name.Replace("(Clone)", "").Trim()) // Match without "(Clone)"
+            {
+                return prefab;
+            }
+        }
+        return null;
+    }
+
     public void RelocateObject()
     {
         if (selectedObject == null) return;
 
-        // 1. Delete the object
+        // 1. Store the object's type before deleting
+        GameObject objectToRelocate = selectedObject;
+        GameObject objectPrefab = GetObjectPrefab(objectToRelocate);
+
+        // 2. Delete the selected object
         placedObjects.Remove(selectedObject);
         Destroy(selectedObject);
         selectionUI.SetActive(false);
 
-        // 2. Allow user to place a new object
+        // 3. Set the object type to match the deleted one
+        if (objectPrefab != null)
+        {
+            currentObjectToPlace = objectPrefab;
+        }
+
+        // 4. Enable relocation mode
         isPlacingAfterRelocate = true;
         placementIndicator.SetActive(true);
     }
+
 
     private bool IsPointerOverUiObject()
     {
